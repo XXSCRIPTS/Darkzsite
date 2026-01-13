@@ -9,19 +9,19 @@
   <style>
     body { font-family: 'Inter', sans-serif; background: #000; color: #e4e4e7; margin: 0; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .preview-window { background: #0d0d0d; border: 1px solid #222; border-radius: 8px; overflow: hidden; box-shadow: 0 0 20px rgba(255,255,255,0.05); min-height: 380px; }
-    .titlebar { background: #111; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1a1a1a; }
+    .preview-window { background: #0d0d0d; border: 1px solid #222; border-radius: 8px; overflow: hidden; min-height: 420px; box-shadow: 0 0 15px rgba(255,255,255,0.04); }
+    .titlebar { background: #111; padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1a1a1a; }
     .traffic .dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
     .card { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 6px; padding: 16px; }
-    .palette-item { background: #111; border: 1px solid #222; padding: 10px 8px; text-align: center; cursor: pointer; border-radius: 4px; font-size: 0.85rem; color: #ccc; transition: all 0.15s; }
-    .palette-item:hover { background: #1a1a1a; color: #fff; }
-    .element { background: #111; border: 1px solid #222; border-radius: 4px; padding: 10px; margin: 8px 0; color: #ddd; font-size: 0.9rem; }
-    .tab-name { cursor: pointer; padding: 4px 12px; border-radius: 4px; color: #aaa; font-size: 0.9rem; margin-right: 8px; transition: all 0.3s; }
+    .palette-item { background: #111; border: 1px solid #222; padding: 12px 8px; text-align: center; cursor: pointer; border-radius: 4px; font-size: 0.9rem; color: #ccc; transition: all 0.15s; }
+    .palette-item:hover { background: #1a1a1a; color: #fff; border-color: #333; }
+    .element { background: #111; border: 1px solid #222; border-radius: 4px; padding: 12px; margin: 8px 0; color: #ddd; font-size: 0.9rem; }
+    .tab-name { cursor: pointer; padding: 5px 12px; border-radius: 4px; color: #aaa; font-size: 0.9rem; margin-right: 8px; transition: all 0.4s; }
     .tab-name:hover { background: #222; color: #fff; }
     .tab-name.active {
-      background: linear-gradient(90deg, #ffffff, #cccccc, #ffffff);
+      background: linear-gradient(90deg, #ffffff, #dddddd, #ffffff);
       background-size: 200% 100%;
-      animation: shine 3s linear infinite;
+      animation: shine 4s linear infinite;
       color: #000;
       font-weight: 600;
     }
@@ -29,12 +29,12 @@
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
-    .edit-btn { font-size: 0.75rem; background: #222; color: #ccc; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer; margin-top: 4px; }
+    .edit-btn { font-size: 0.75rem; background: #222; color: #ccc; border: none; padding: 3px 10px; border-radius: 4px; cursor: pointer; margin-top: 6px; display: block; }
     .edit-btn:hover { background: #333; color: #fff; }
-    #editModal, #codeModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; }
-    .modal-box { background: #000; border: 1px solid #222; border-radius: 8px; width: 90%; max-width: 600px; padding: 20px; }
-    .input-field { background: #111; border: 1px solid #333; color: white; padding: 8px; border-radius: 4px; width: 100%; margin-bottom: 12px; }
-    .btn-gray { background: #222; color: white; border: 1px solid #444; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+    #editModal, #codeModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; align-items: center; justify-content: center; }
+    .modal-box { background: #000; border: 1px solid #222; border-radius: 8px; width: 90%; max-width: 600px; padding: 24px; }
+    .input-field { background: #111; border: 1px solid #333; color: white; padding: 10px; border-radius: 4px; width: 100%; margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; }
+    .btn-gray { background: #222; color: white; border: 1px solid #444; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
     .btn-gray:hover { background: #333; }
   </style>
 </head>
@@ -42,9 +42,9 @@
 
 <div class="max-w-7xl mx-auto p-4 md:p-6">
   <nav class="flex border-b border-[#1a1a1a] mb-8 overflow-x-auto">
-    <button class="tab-btn px-5 py-4 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400 active whitespace-nowrap" data-tab="home">Home</button>
-    <button class="tab-btn px-5 py-4 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400 whitespace-nowrap" data-tab="builder">UI Builder</button>
-    <button class="tab-btn px-5 py-4 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400 whitespace-nowrap" data-tab="obfuscation">Obfuscation</button>
+    <button class="tab-btn px-6 py-4 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400 active whitespace-nowrap" data-tab="home">Home</button>
+    <button class="tab-btn px-6 py-4 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400 whitespace-nowrap" data-tab="builder">UI Builder</button>
+    <button class="tab-btn px-6 py-4 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400 whitespace-nowrap" data-tab="obfuscation">Obfuscation</button>
   </nav>
 
   <!-- Home -->
@@ -76,11 +76,11 @@
   <div id="builder" class="tab-content hidden">
     <h1 class="text-3xl font-bold mb-6 text-white">DARKZSCRIPTS UI Builder</h1>
     <div class="flex border-b border-[#1a1a1a] mb-6">
-      <button class="sub-tab-btn px-5 py-3 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400 active" data-sub="windui">WindUI</button>
-      <button class="sub-tab-btn px-5 py-3 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400" data-sub="neverlose">Neverlose</button>
+      <button class="sub-tab-btn px-6 py-3 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400 active" data-sub="windui">WindUI</button>
+      <button class="sub-tab-btn px-6 py-3 font-medium text-gray-400 hover:text-white border-b-2 border-transparent hover:border-gray-400" data-sub="neverlose">Neverlose</button>
     </div>
 
-    <!-- WindUI -->
+    <!-- WindUI Builder -->
     <div id="windui" class="sub-content">
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div class="lg:col-span-1 space-y-6">
@@ -100,7 +100,7 @@
           <div class="card">
             <div class="flex justify-between items-center mb-4">
               <h2 class="text-lg font-semibold text-white">TABS</h2>
-              <button id="w_addTab" class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-white text-sm">+</button>
+              <button id="w_addTabBtn" class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-white text-sm font-bold">+</button>
             </div>
             <div id="w_tabsList" class="space-y-3 max-h-80 overflow-y-auto"></div>
           </div>
@@ -109,12 +109,14 @@
         <div class="lg:col-span-2">
           <div class="preview-window">
             <div class="titlebar">
-              <div class="traffic flex">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
+              <div class="flex items-center gap-2">
+                <div class="traffic flex">
+                  <div class="dot red"></div>
+                  <div class="dot yellow"></div>
+                  <div class="dot green"></div>
+                </div>
               </div>
-              <span id="w_previewTitle" class="text-white font-medium">DarkzScripts</span>
+              <div id="w_tabNames" class="flex gap-2 flex-wrap"></div>
               <span class="text-gray-500 text-xs">Running</span>
             </div>
             <div id="w_previewContent" class="p-6"></div>
@@ -139,7 +141,7 @@
       </div>
     </div>
 
-    <!-- Neverlose (now same layout as WindUI) -->
+    <!-- Neverlose Builder - same layout -->
     <div id="neverlose" class="sub-content hidden">
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div class="lg:col-span-1 space-y-6">
@@ -154,17 +156,16 @@
                 <input id="n_keysys" type="checkbox" class="w-4 h-4 accent-gray-500">
                 <label class="text-sm text-gray-400">KeySystem Enabled</label>
               </div>
-              <div id="keyInputDiv" class="hidden">
-                <label class="block text-sm text-gray-500 mb-1">Key Title / Keys (comma separated)</label>
+              <div id="n_keyInputDiv" class="hidden">
+                <label class="block text-sm text-gray-500 mb-1">Key(s) (comma separated)</label>
                 <input id="n_keytext" type="text" value="Beta,Test" class="w-full bg-[#0a0a0a] border border-[#222] rounded px-3 py-2 text-white">
               </div>
             </div>
           </div>
-
           <div class="card">
             <div class="flex justify-between items-center mb-4">
               <h2 class="text-lg font-semibold text-white">TABS</h2>
-              <button id="n_addTab" class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-white text-sm">+</button>
+              <button id="n_addTabBtn" class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-white text-sm font-bold">+</button>
             </div>
             <div id="n_tabsList" class="space-y-3 max-h-80 overflow-y-auto"></div>
           </div>
@@ -173,12 +174,14 @@
         <div class="lg:col-span-2">
           <div class="preview-window">
             <div class="titlebar">
-              <div class="traffic flex">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
+              <div class="flex items-center gap-2">
+                <div class="traffic flex">
+                  <div class="dot red"></div>
+                  <div class="dot yellow"></div>
+                  <div class="dot green"></div>
+                </div>
               </div>
-              <span id="n_previewTitle" class="text-white font-medium">DarkzScripts</span>
+              <div id="n_tabNames" class="flex gap-2 flex-wrap"></div>
               <span class="text-gray-500 text-xs">Running</span>
             </div>
             <div id="n_previewContent" class="p-6"></div>
@@ -196,7 +199,7 @@
               <div class="palette-item" data-type="Dropdown">Dropdown</div>
               <div class="palette-item" data-type="Colorpicker">Colorpicker</div>
               <div class="palette-item" data-type="Bind">Bind</div>
-              <div class="palette-item" data-type="Notify">Notify (example)</div>
+              <div class="palette-item" data-type="Notify">Notify</div>
             </div>
             <button id="n_viewCodeBtn" class="mt-6 w-full bg-gray-700 hover:bg-gray-600 py-3 rounded font-medium text-white">View Code</button>
           </div>
@@ -205,7 +208,7 @@
     </div>
   </div>
 
-  <!-- Obfuscation tab (from previous) -->
+  <!-- Obfuscation Tab -->
   <div id="obfuscation" class="tab-content hidden">
     <h1 class="text-3xl font-bold mb-6 text-white">DARKZSCRIPTS Obfuscator</h1>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -229,14 +232,14 @@
   </div>
 </div>
 
-<!-- Edit Element Modal -->
+<!-- Edit Modal -->
 <div id="editModal">
   <div class="modal-box">
     <h2 class="text-xl font-bold text-white mb-4">Edit Element</h2>
     <label class="block text-sm text-gray-400 mb-1">Element Name / Label</label>
     <input id="editName" type="text" class="input-field">
     <label class="block text-sm text-gray-400 mb-1 mt-4">Callback Code</label>
-    <textarea id="editCallback" class="input-field h-32 resize-y mono text-sm"></textarea>
+    <textarea id="editCallback" class="input-field h-40 resize-y mono text-sm"></textarea>
     <div class="mt-6 flex gap-4">
       <button id="saveEditBtn" class="btn-gray flex-1">Save</button>
       <button id="closeEditBtn" class="btn-gray flex-1">Cancel</button>
@@ -260,7 +263,7 @@
 </div>
 
 <script>
-// Tab switching
+// Tab / Sub-tab switching
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active', 'border-gray-400', 'text-white'));
@@ -279,77 +282,170 @@ document.querySelectorAll('.sub-tab-btn').forEach(btn => {
   });
 });
 
-// WindUI Builder (simplified for brevity - add your full palette/logic here)
-let windTabs = [{ name: "Main", elements: [] }];
-let selectedWindTab = 0;
-let editingTabIndex = -1;
-let editingElIndex = -1;
+// Shared functions for both builders
+function createTabList(containerId, addBtnId, tabsArray, selectedIndex, selectFn, deleteFn, renderPreviewFn) {
+  const list = document.getElementById(containerId);
+  const addBtn = document.getElementById(addBtnId);
+  addBtn.onclick = () => {
+    const name = prompt("Tab name:", "Main") || "Main";
+    tabsArray.push({ name, elements: [] });
+    renderTabList();
+    selectFn(tabsArray.length - 1);
+  };
 
-function updateWindPreview() {
-  // similar to previous - show tabs, elements, Edit buttons
-  // when Edit clicked: show modal, save to windTabs[tab].elements[el].name & .callback
+  function renderTabList() {
+    list.innerHTML = '';
+    tabsArray.forEach((tab, i) => {
+      const div = document.createElement('div');
+      div.className = `p-3 rounded border cursor-pointer flex justify-between items-center text-sm ${i === selectedIndex ? 'border-gray-400 bg-[#111]' : 'border-[#1a1a1a] bg-[#0a0a0a]'}`;
+      div.innerHTML = `
+        <div>
+          <div class="text-white">${tab.name}</div>
+          <div class="text-xs text-gray-600">${tab.elements.length} elements</div>
+        </div>
+        <button class="text-gray-500 hover:text-red-400 text-xs" onclick="event.stopPropagation(); deleteFn(${i})">×</button>
+      `;
+      div.onclick = () => selectFn(i);
+      list.appendChild(div);
+    });
+  }
+
+  return { renderTabList };
 }
 
-// Neverlose Builder (now same structure)
+// WindUI
+let windTabs = [{ name: "Main", elements: [] }];
+let selectedWindTab = 0;
+
+const windTabList = createTabList('w_tabsList', 'w_addTabBtn', windTabs, selectedWindTab,
+  i => { selectedWindTab = i; renderWindTabNames(); renderWindPreview(); },
+  i => { if (confirm("Delete tab?")) { windTabs.splice(i, 1); if (selectedWindTab >= windTabs.length) selectedWindTab = windTabs.length - 1; renderWindTabNames(); renderWindPreview(); } }
+);
+
+function renderWindTabNames() {
+  const container = document.getElementById('w_tabNames');
+  container.innerHTML = '';
+  windTabs.forEach((tab, i) => {
+    const span = document.createElement('span');
+    span.className = `tab-name ${i === selectedWindTab ? 'active' : ''}`;
+    span.textContent = tab.name;
+    span.onclick = () => { selectedWindTab = i; renderWindTabNames(); renderWindPreview(); };
+    container.appendChild(span);
+  });
+}
+
+function renderWindPreview() {
+  const content = document.getElementById('w_previewContent');
+  content.innerHTML = '';
+  if (selectedWindTab < 0 || windTabs.length === 0) {
+    content.innerHTML = '<p class="text-gray-600 mt-32 text-center">Add a tab first</p>';
+    return;
+  }
+  const tab = windTabs[selectedWindTab];
+  let html = `<h3 class="text-white text-lg mb-4">${tab.name}</h3>`;
+  tab.elements.forEach((el, idx) => {
+    let elHtml = '';
+    if (el.type === 'Button') elHtml = `<button class="bg-gray-700 w-full py-2.5 rounded text-white text-sm">${el.name || 'Button'}</button>`;
+    else if (el.type === 'Toggle') elHtml = `<div class="flex justify-between items-center"><span class="text-gray-300">${el.name || 'Toggle'}</span><div class="w-10 h-5 bg-gray-700 rounded-full"><div class="w-4 h-4 bg-gray-300 rounded-full ml-1 mt-0.5"></div></div></div>`;
+    else if (el.type === 'Slider') elHtml = `<div class="text-gray-300">${el.name || 'Slider'}<div class="h-2 bg-gray-800 rounded-full mt-2"><div class="h-2 bg-gray-500 rounded-full w-3/5"></div></div></div>`;
+    else if (el.type === 'Input') elHtml = `<input type="text" placeholder="${el.name || 'Input'}" class="w-full bg-[#000] border border-[#222] rounded px-3 py-2 mt-1 text-gray-300">`;
+    else if (el.type === 'Section') elHtml = `<div class="font-bold border-b border-[#222] pb-2 mb-3 text-white">${el.name || 'Section'}</div>`;
+    else if (el.type === 'Colorpicker') elHtml = `<div class="flex justify-between"><span class="text-gray-300">${el.name || 'Color'}</span><div class="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-600 rounded"></div></div>`;
+    else if (el.type === 'Keybind') elHtml = `<div class="flex justify-between"><span class="text-gray-300">${el.name || 'Keybind'}</span><kbd class="bg-gray-800 px-2 py-1 rounded text-xs">CTRL+K</kbd></div>`;
+    html += `<div class="element">${elHtml}<button class="edit-btn" onclick="editElement('windui', ${selectedWindTab}, ${idx})">Edit</button></div>`;
+  });
+  content.innerHTML = html || '<p class="text-gray-600 mt-20 text-center">Click + to add elements</p>';
+}
+
+// Neverlose (same structure)
 let neverTabs = [{ name: "Main", elements: [] }];
 let selectedNeverTab = 0;
-let editingNeverTabIndex = -1;
-let editingNeverElIndex = -1;
 
-// KeySystem logic
-document.getElementById('n_keysys').addEventListener('change', e => {
-  document.getElementById('keyInputDiv').classList.toggle('hidden', !e.target.checked);
-});
+const neverTabList = createTabList('n_tabsList', 'n_addTabBtn', neverTabs, selectedNeverTab,
+  i => { selectedNeverTab = i; renderNeverTabNames(); renderNeverPreview(); },
+  i => { if (confirm("Delete tab?")) { neverTabs.splice(i, 1); if (selectedNeverTab >= neverTabs.length) selectedNeverTab = neverTabs.length - 1; renderNeverTabNames(); renderNeverPreview(); } }
+);
 
-// Generate Neverlose code with KeySystem
-document.getElementById('n_viewCodeBtn')?.addEventListener('click', () => {
-  const title = document.getElementById('n_title').value || "DarkzScripts";
-  const keysys = document.getElementById('n_keysys').checked;
-  const keys = document.getElementById('n_keytext').value.split(',').map(k => `"${k.trim()}"`).join(', ');
+function renderNeverTabNames() {
+  const container = document.getElementById('n_tabNames');
+  container.innerHTML = '';
+  neverTabs.forEach((tab, i) => {
+    const span = document.createElement('span');
+    span.className = `tab-name ${i === selectedNeverTab ? 'active' : ''}`;
+    span.textContent = tab.name;
+    span.onclick = () => { selectedNeverTab = i; renderNeverTabNames(); renderNeverPreview(); };
+    container.appendChild(span);
+  });
+}
 
-  let code = `local Neverlose_Main = loadstring(game:HttpGet"https://github.com/Mana42138/Neverlose-UI/blob/main/Source.lua")()\n`;
-  code += `local Win = Neverlose_Main:Window({\n`;
-  code += `  Title = "${title}",\n`;
-  code += `  CFG = "DarkzScripts",\n`;
-  if (keysys) {
-    code += `  External = {\n`;
-    code += `    KeySystem = true,\n`;
-    code += `    Key = { ${keys} }\n`;
-    code += `  }\n`;
+function renderNeverPreview() {
+  const content = document.getElementById('n_previewContent');
+  content.innerHTML = '';
+  if (selectedNeverTab < 0 || neverTabs.length === 0) {
+    content.innerHTML = '<p class="text-gray-600 mt-32 text-center">Add a tab first</p>';
+    return;
   }
-  code += `})\n\n`;
+  const tab = neverTabs[selectedNeverTab];
+  let html = `<h3 class="text-white text-lg mb-4">${tab.name}</h3>`;
+  tab.elements.forEach((el, idx) => {
+    let elHtml = '';
+    if (el.type === 'Toggle') elHtml = `<div class="flex justify-between"><span class="text-gray-300">${el.name || 'Toggle'}</span><div class="w-10 h-5 bg-gray-700 rounded-full"><div class="w-4 h-4 bg-gray-300 rounded-full ml-1 mt-0.5"></div></div></div>`;
+    else if (el.type === 'Slider') elHtml = `<div class="text-gray-300">${el.name || 'Slider'}<div class="h-2 bg-gray-800 rounded-full mt-2"><div class="h-2 bg-gray-500 rounded-full w-3/5"></div></div></div>`;
+    else if (el.type === 'Button') elHtml = `<button class="bg-gray-700 w-full py-2.5 rounded text-white text-sm">${el.name || 'Button'}</button>`;
+    else if (el.type === 'TextBox') elHtml = `<input type="text" placeholder="${el.name || 'TextBox'}" class="w-full bg-[#000] border border-[#222] rounded px-3 py-2 mt-1 text-gray-300">`;
+    else if (el.type === 'Dropdown') elHtml = `<select class="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-gray-300"><option>${el.name || 'Dropdown'}</option></select>`;
+    else if (el.type === 'Colorpicker') elHtml = `<div class="flex justify-between"><span class="text-gray-300">${el.name || 'Color'}</span><div class="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-600 rounded"></div></div>`;
+    else if (el.type === 'Bind') elHtml = `<div class="flex justify-between"><span class="text-gray-300">${el.name || 'Bind'}</span><kbd class="bg-gray-800 px-2 py-1 rounded text-xs">RIGHT SHIFT</kbd></div>`;
+    else if (el.type === 'Notify') elHtml = `<div class="bg-gray-800 p-3 rounded text-center text-sm">Notify: ${el.name || 'Message'}</div>`;
+    html += `<div class="element">${elHtml}<button class="edit-btn" onclick="editElement('neverlose', ${selectedNeverTab}, ${idx})">Edit</button></div>`;
+  });
+  content.innerHTML = html || '<p class="text-gray-600 mt-20 text-center">Click + to add elements</p>';
+}
 
-  // Add tabs, sections, elements...
-  code += `local TabSection1 = Win:TSection("Misc")\n`;
-  code += `local Main = TabSection1:Tab("Main")\n`;
-  code += `local MainSection = Main:Section("Main Section")\n`;
+// Edit modal logic
+let currentBuilder = '';
+function editElement(builder, tabIdx, elIdx) {
+  currentBuilder = builder;
+  editingTabIndex = tabIdx;
+  editingElIndex = elIdx;
+  const tabs = builder === 'windui' ? windTabs : neverTabs;
+  const el = tabs[tabIdx].elements[elIdx];
+  document.getElementById('editName').value = el.name || '';
+  document.getElementById('editCallback').value = el.callback || '';
+  document.getElementById('editModal').style.display = 'flex';
+}
 
-  // example elements
-  code += `MainSection:Toggle("Toggle", function(t) print(t) end)\n`;
-  code += `MainSection:Slider("Slider", 1, 500, 50, function(t) print(t) end)\n`;
-  code += `MainSection:Button("Press Me", function() Neverlose_Main:Notify({Title="Info", Text="Clicked!", Time=2}) end)\n`;
+document.getElementById('saveEditBtn').onclick = () => {
+  const tabs = currentBuilder === 'windui' ? windTabs : neverTabs;
+  const el = tabs[editingTabIndex].elements[editingElIndex];
+  el.name = document.getElementById('editName').value.trim() || el.type;
+  el.callback = document.getElementById('editCallback').value.trim();
+  document.getElementById('editModal').style.display = 'none';
+  if (currentBuilder === 'windui') renderWindPreview();
+  else renderNeverPreview();
+};
 
+document.getElementById('closeEditBtn').onclick = () => document.getElementById('editModal').style.display = 'none';
+
+// View Code (WindUI example - add Neverlose similarly)
+document.getElementById('w_viewCodeBtn').onclick = () => {
+  let code = `local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()\n\n`;
+  code += `local Window = WindUI:CreateWindow({ Title = "${document.getElementById('w_title').value.trim()}", Theme = "Dark" })\n\n`;
+  windTabs.forEach((tab, i) => {
+    code += `local Tab${i} = Window:CreateTab("${tab.name}")\n`;
+    tab.elements.forEach(el => {
+      let cb = el.callback || 'function(v) -- your code end';
+      if (!cb.startsWith('function')) cb = `function(v) ${cb} end`;
+      code += `  Tab${i}:Create${el.type}("${el.name}", false, ${cb})\n`;
+    });
+  });
   document.getElementById('codeDisplay').textContent = code;
   document.getElementById('codeModal').style.display = 'flex';
-});
-
-// Modal controls
-document.getElementById('closeModalBtn').onclick = () => document.getElementById('codeModal').style.display = 'none';
-document.getElementById('copyCodeBtn').onclick = () => {
-  navigator.clipboard.writeText(document.getElementById('codeDisplay').textContent).then(() => alert('Copied!'));
-};
-document.getElementById('downloadCodeBtn').onclick = () => {
-  const text = document.getElementById('codeDisplay').textContent;
-  const blob = new Blob([text], {type: 'text/plain'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'darkzscripts.lua';
-  a.click();
 };
 
 // Init
-renderWindTabs(); updateWindPreview();
+renderWindTabNames(); renderWindPreview();
+renderNeverTabNames(); renderNeverPreview();
   </script>
 </body>
   </html>
